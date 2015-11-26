@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Seletores</title>
+	<script type="text/javascript" src="jquery-1.11.3.js"></script>	
+	<link type="text/css" rel="stylesheet" href="Styles.css"/>
+</head>
+<body>
+
+<header>
+	<div class="nav">
+	  <ul>
+	    <li class="Titulo01"><a href="#Titulo01">Titulo01</a></li>
+	    <li class="Titulo02"><a href="#Titulo02">Titulo02</a></li>
+	    <li class="Titulo03"><a href="#Titulo03">Titulo03</a></li>
+	    <li class="Titulo04"><a href="#Titulo04">Titulo04</a></li>
+	    <li class="Titulo05"><a href="#Titulo05">Titulo05</a></li>
+	  </ul>
+	</div>
+</header>
+
+
+<div class="Content">
+<div id="wrapper">
+	<div id="#Titulo01" class="divForm">
+		<h3>Titulo 01</h3>
+		<form id="formCad" class="form-style-5" method="post" onsubmit="return getAction(this);">
+
+
+
+			<fieldset>
+				<legend><span class="number">1</span> Candidate Info</legend>
+				<input type="text" name="name" placeholder="Your Name *">
+				<input type="email" name="email" placeholder="Your Email *">
+				<textarea name="about" placeholder="About yourself"></textarea>
+				<label for="job">Interests:</label>
+				<select id="job" name="interests">
+					<optgroup label="Indoors">
+						  <option value="fishkeeping">Fishkeeping</option>
+						  <option value="reading">Reading</option>
+						  <option value="boxing">Boxing</option>
+						  <option value="debate">Debate</option>
+						  <option value="gaming">Gaming</option>
+						  <option value="snooker">Snooker</option>
+						  <option value="other_indoor">Other</option>
+					</optgroup>
+					<optgroup label="Outdoors">
+						  <option value="football">Football</option>
+						  <option value="swimming">Swimming</option>
+						  <option value="fishing">Fishing</option>
+						  <option value="climbing">Climbing</option>
+						  <option value="cycling">Cycling</option>
+						  <option value="other_outdoor">Other</option>
+					</optgroup>
+				</select>      
+			</fieldset>
+			<fieldset>
+				<legend><span class="number">2</span> Additional Info</legend>
+				<textarea name="school" placeholder="About Your School"></textarea>
+			</fieldset>
+
+			<input type="submit" value="Submit">
+		</form>
+
+
+	</div>
+
+	<div id="#Titulo02" class="CSSTableGenerator">
+		<table id="listTable" class="classTable">
+			<tr><th>Name</th><th>Email</th><th>About</th><th>Interest</th><th>About School</th></tr>
+		</table>
+	</div>
+</div>
+	<div id="#Titulo03"></div>
+	<div id="#Titulo04"></div>
+	<div id="#Titulo05"></div>
+</div>
+<div class="footer"></div>
+
+<script type="text/javascript">
+	function getAction(paramForm) {
+		if(paramForm.name.value === "" || paramForm.email.value === "")
+			alert('The name and email is required!');
+		else {
+			$("#listTable").append("<tr></tr>");
+			var newTr = $("#listTable tr").last();
+			$(newTr).append("<td>" + paramForm.name.value + "</td>");
+			$(newTr).append("<td>" + paramForm.email.value + "</td>");
+			$(newTr).append("<td>" + paramForm.about.value + "</td>");
+			$(newTr).append("<td>" + paramForm.interests.value + "</td>");
+			$(newTr).append("<td>" + paramForm.school.value + "</td>");
+		}
+
+		return false;
+	}
+
+	$(document).ready(function(){
+		$("#formCad select").on("change", function(e){
+			alert($(e.target).find("option:selected").text());
+		})
+
+		alert($("select option[value*='foo']").first().text());
+	});
+
+</script>
+
+
+</body>
+</html>
