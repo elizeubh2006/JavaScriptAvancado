@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sprites</title>
+
+		<style type="text/css">
+			canvas {
+				position: absolute;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin: auto;
+			}
+		</style>
+	
+	</head>
+	<body>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var canvas = document.createElement("canvas"),
+			context = canvas.getContext("2d"),
+			width = canvas.width = 800,
+			height = canvas.height = 600;
+			canvas.style.border = "1px solid #000";
+
+			document.body.appendChild(canvas);
+
+			var points = [],
+			gravidade = 0.5,
+			resistencia = 0.999;
+
+			points.push({
+				x: 100,
+				y: 100, 
+				oldx: 95, 
+				oldy: 95
+			});
+
+			update();
+
+			function update(){
+				updatePoints();
+				renderPoints();
+				requestAnimationFrame(update);
+			}
+
+			function updatePoints(){
+
+				for(var i = 0; i < points.length; i++){
+						var p = points[i], vx = 0, vy = 0;
+
+
+						vx = (p.x - p.oldx) * resistencia,
+						vy = (p.y - p.oldy) * resistencia; 
+
+						p.oldx = p.x;
+						p.oldy = p.y;
+
+						p.x += vx;
+						p.y += vy;
+
+						p.y += gravidade;
+
+						if(p.x > width){
+							p.x = width;
+							p.oldx = p.x + vx; //vx fica negativa
+						}
+						else if(p.x < 0){
+							p.x = 0;
+							p.oldx = p.x + vx; 
+						}
+
+						if(p.y > height){
+							p.y = height;
+							p.oldy = p.y + vy; 
+						}
+						else if(p.y < 0){
+							p.y = 0;
+							p.oldy = p.y + vy;
+						}
+				}
+			}
+
+			function renderPoints() {
+				context.clearRect(0, 0, width, height);
+				for(var i = 0; i < points.length; i++){
+					var p = points[i];
+					context.beginPath();
+					context.arc(p.x, p.y, 5, 0, Math.PI * 2);
+					context.fill();
+				}
+
+			}
+		};
+
+
+
+
+	</script>
+
+	</body>
+</html>
+
+
+
+
